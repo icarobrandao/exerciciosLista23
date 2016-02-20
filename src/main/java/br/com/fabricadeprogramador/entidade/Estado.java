@@ -10,8 +10,8 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="Cliente")
-public class Cliente {
+@Table(name="Estado")
+public class Estado {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -23,10 +23,10 @@ public class Cliente {
 	@Column(nullable=false, name="cpf", length=50)
 	private String cpf;
 	
-	public Cliente() {
+	public Estado() {
 		// TODO Auto-generated constructor stub
 	}
-	public Cliente(String nome, String rg, String cpf) {
+	public Estado(String nome, String rg, String cpf) {
 		super();
 		this.nome = nome;
 		this.rg = rg;

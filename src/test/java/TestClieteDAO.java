@@ -1,28 +1,59 @@
+import java.util.List;
+
 import br.com.fabricadeprogramador.dao.ClienteDAO;
 import br.com.fabricadeprogramador.entidade.Cliente;
 
 public class TestClieteDAO {
 
+	static ClienteDAO clienteDAO = new ClienteDAO();
+
 	public static void main(String[] args) {
-		Cliente cliente = new Cliente();
-		cliente.setNome("maria");
-		cliente.setCpf("777.777.777-77");
-		cliente.setRg("777.777.777-77");
-		
-		ClienteDAO clienteDAO= new ClienteDAO();
-		clienteDAO.excluir(cliente);
-		System.out.println("Salvo com sucesso!");
+
+		testSalvar();
+		//testBuscarPorId();
+		//testAlterar();
+		//testBuscarTodos();
+		//testBuscarTodos2();
+
 	}
 
-	
-	public static void salvar(){
-		Cliente cliente = new Cliente();
-		cliente.setNome("maria");
-		cliente.setCpf("777.777.777-77");
-		cliente.setRg("777.777.777-77");
-		
-		ClienteDAO clienteDAO= new ClienteDAO();
-		clienteDAO.salvar(cliente);
+	public static void testSalvar() {
+
+		clienteDAO.salvar(new Cliente("romeu", "777.777.77-77", "3232.626."));
 		System.out.println("Salvo com sucesso!");
+
+	}
+
+	public static void testBuscarPorId() {
+
+		Cliente cliBuscado = clienteDAO.buscarPorId(1);
+		System.out.println(cliBuscado.getId() + " " + cliBuscado.getNome());
+
+	}
+
+	public static void testAlterar() {
+		Cliente cliBuscado = clienteDAO.buscarPorId(1);
+		cliBuscado.setNome("Zé");
+		clienteDAO.salvar(cliBuscado);
+	}
+
+	public static void testBuscarTodos(){
+		List<Cliente> buscarTodos = clienteDAO.buscarTodos();
+		for(Cliente c: buscarTodos){
+			System.out.println(c.getId()+ " " + c.getNome());
+		}
+	}
+	
+	public static void testBuscarTodos2(){
+		List<Object[]> buscarTodos = clienteDAO.buscarTodos2();
+		for(Object[] c: buscarTodos){
+			System.out.println(c[0]+ " " + c[1]);
+		}
+	}
+	
+	
+	public static void testExcluir() {
+		Cliente cliBuscado = clienteDAO.buscarPorId(1);
+		clienteDAO.excluir(cliBuscado);
 	}
 }

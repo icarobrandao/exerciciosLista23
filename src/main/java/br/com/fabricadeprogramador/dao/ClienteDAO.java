@@ -3,8 +3,7 @@ package br.com.fabricadeprogramador.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import br.com.fabricadeprogramador.entidade.Cliente;
 
@@ -13,59 +12,51 @@ public class ClienteDAO {
 	private EntityManager em;
 
 	public ClienteDAO() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("cliente_db");
-		em = emf.createEntityManager();
+		
+		em = EMFactory.getEntityManager();
+		
 	}
 
-	public void abreEntity() {
-
-		em.getTransaction().begin();
-
-	}
-
-	public void fechaEntity() {
-
-		em.close();
-
-	}
 
 	public void salvar(Cliente cliente) {
 
-		
+		em.getTransaction().begin();
 		em.persist(cliente);
 		em.getTransaction().commit();
 		
-
 	}
 
 	public void excluir(Cliente cliente) {
 
-		abreEntity();
+		em.getTransaction().begin();
 		em.remove(cliente);
 		em.getTransaction().commit();
-		fechaEntity();
-
+		
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Cliente> buscarTodos() {
 
-		abreEntity();
-		List<Cliente> lista = em.createQuery("select * from cliente", Cliente.class).getResultList();
-		em.getTransaction().commit();
-		fechaEntity();
-		return lista;
+		
+		Query query = em.createQuery("select c from Cliente c");
+		return query.getResultList();
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Object[]> buscarTodos2() {
+
+		
+		Query query = em.createQuery("select c.id, c.nome from Cliente c");
+		return query.getResultList();
 
 	}
 
-	public List<Cliente> buscarPorId(Integer id) {
-
-		abreEntity();
-		List<Cliente> lista = em.createQuery("select * from cliente where id =?", Cliente.class).setParameter(1, id)
-				.getResultList();
-		em.getTransaction().commit();
-		fechaEntity();
-		return lista;
-
+	public Cliente buscarPorId(Integer id) {
+		
+		return em.find(Cliente.class, id);// select * from usuario where id=?
+		
+	
 	}
 
 }
