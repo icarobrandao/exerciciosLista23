@@ -7,7 +7,7 @@ import javax.persistence.Query;
 
 import br.com.fabricadeprogramador.entidade.Estado;
 
-public class EstadoDAO {
+public class EstadoDAO implements DAO<Estado>{
 private EntityManager em;
 	
 	public EstadoDAO() {
@@ -27,7 +27,7 @@ private EntityManager em;
 		em.getTransaction().commit();
 	}
 	
-	public Estado buscarPorId(int id){
+	public Estado buscarPorId(Integer id){
 		return em.find(Estado.class,id);// Select * from estado where id=?
 	}
 	

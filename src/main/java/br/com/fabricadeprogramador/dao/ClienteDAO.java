@@ -7,7 +7,7 @@ import javax.persistence.Query;
 
 import br.com.fabricadeprogramador.entidade.Cliente;
 
-public class ClienteDAO {
+public class ClienteDAO implements DAO<Cliente>{
 
 	private EntityManager em;
 

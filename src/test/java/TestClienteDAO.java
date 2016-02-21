@@ -1,11 +1,16 @@
 import java.util.List;
 
 import br.com.fabricadeprogramador.dao.ClienteDAO;
+import br.com.fabricadeprogramador.dao.DAO;
+import br.com.fabricadeprogramador.dao.DAOFactory;
+import br.com.fabricadeprogramador.dao.EstadoDAO;
 import br.com.fabricadeprogramador.entidade.Cliente;
+import br.com.fabricadeprogramador.entidade.Estado;
 
-public class TestClieteDAO {
+public class TestClienteDAO {
 
-	static ClienteDAO clienteDAO = new ClienteDAO();
+	static DAO<Cliente> clienteDAO = DAOFactory.getDAO("clienteDAO");
+	static DAO<Estado> estadoDAO = DAOFactory.getDAO("estadoDAO");
 
 	public static void main(String[] args) {
 
